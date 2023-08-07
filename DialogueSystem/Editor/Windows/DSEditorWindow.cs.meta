@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 04c51596e3b4e1d4092dc75f9759d9af
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - gridStyleSheet: {fileID: 7433441132597879392, guid: 2ebdd5ad2d85e5f47994a8570d925bbe, type: 3}
+  - gridStyleSheetVariables: {fileID: 7433441132597879392, guid: 0b1c502d375af8b40bf980ede6fed8a1, type: 3}
+  - nodesStyleSheet: {fileID: 7433441132597879392, guid: 74d066e1d3808da40b4a0d912c7c418f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
