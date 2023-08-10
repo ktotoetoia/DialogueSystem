@@ -26,7 +26,7 @@ namespace DS
 
             graphView.AddNode(group);
 
-            group.AddElements(graphView.selection.OfType<DialogueBaseNode>());
+            group.AddElements(graphView.selection.OfType<DialogueNodeBase>());
 
             return group;
         }

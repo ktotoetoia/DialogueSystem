@@ -11,7 +11,7 @@ namespace DS
             this.graphView = graphView;
         }
 
-        protected void ConvertBaseNode(DialogueBaseNode node, SerializableNode serializableNode)
+        protected void ConvertBaseNode(DialogueNodeBase node, SerializableNode serializableNode)
         {
             node.Text = serializableNode.Text;
             node.Title = serializableNode.Name;
@@ -20,10 +20,10 @@ namespace DS
             graphView.AddNode(node);
         }
 
-        protected void ConvertPort(SerializableGroup group, NodePairCollection nodes, IChoicePort port, DialogueBaseNode node)
+        protected void ConvertPort(SerializableGroup group, NodePairCollection nodes, IChoicePort port, DialogueNodeBase node)
         {
             SerializableNode from = nodes.Find(node).DataNode;
-            DialogueBaseNode toNode = port.Port.connections.FirstOrDefault()?.input?.node as DialogueBaseNode;
+            DialogueNodeBase toNode = port.Port.connections.FirstOrDefault()?.input?.node as DialogueNodeBase;
             SerializableNode to = toNode == null ? null : nodes.Find(toNode).DataNode;
             SerializableEdge edge = group.ConnectNodes(from, to);
             edge.Text = port.Text;

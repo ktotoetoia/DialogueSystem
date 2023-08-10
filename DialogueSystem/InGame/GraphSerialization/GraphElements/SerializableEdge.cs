@@ -1,16 +1,12 @@
 ﻿namespace DS
 {
+    [System.Serializable]
     public class SerializableEdge
     {
-        public string Text { get; set; }
+        public string Text;
 
-        public int From { get; set; }
-        public int To { get; set; }
-
-        public SerializableEdge()
-        {
-
-        }
+        public int From;
+        public int To;
 
         public SerializableEdge(SerializableNode from, SerializableNode to)
         {

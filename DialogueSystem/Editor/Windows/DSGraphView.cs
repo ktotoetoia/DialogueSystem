@@ -29,7 +29,7 @@ namespace DS
 
         private void UpdateGroup(Group group, IEnumerable<GraphElement> elements)
         {
-            foreach (DialogueBaseNode node in elements.OfType<DialogueBaseNode>().ToList())
+            foreach (DialogueNodeBase node in elements.OfType<DialogueNodeBase>().ToList())
             {
                 var portsToDisconnect = new List<Port>();
                 var ports = node.GetPorts();

@@ -2,7 +2,6 @@
 using System.Threading;
 using UnityEditor;
 using UnityEngine;
-using UnityJSON;
 
 namespace DS
 {
@@ -38,8 +37,8 @@ namespace DS
 
         private void SetDialogueText(DialogueObject dialogue, SerializableGraph graph)
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
-            dialogue.SerializedDialogue = graph.ToJSONString();
+            dialogue.SerializedDialogue = JsonUtility.ToJson(graph);
+
             EditorUtility.SetDirty(dialogue);
         }
 
@@ -52,8 +51,7 @@ namespace DS
 
         public SerializableGraph Deserialize(DialogueObject dialogue)
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
-            return JSON.Deserialize<SerializableGraph>(dialogue.SerializedDialogue);
+            return JsonUtility.FromJson<SerializableGraph>(dialogue.SerializedDialogue);
         }
     }
 }

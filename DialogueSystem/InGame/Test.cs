@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 
+
 namespace DS
 {
-    public class TestExample : MonoBehaviour
+    public class Test : MonoBehaviour
     {
         [SerializeField] private DialogueObject dialogue;
 
@@ -11,7 +12,7 @@ namespace DS
 
         private void Start()
         {
-            graph = dialogue.GetGraph();
+            graph = dialogue.GetMainGraph();
             node = graph.GetFirstNodeWithClassName("start");
         }
 
@@ -19,7 +20,7 @@ namespace DS
         {
             Rect labelPosition = new Rect(new Vector2(350, 200), new Vector2(200, 200));
             Rect buttonPosition = new Rect(new Vector2(350, 300), new Vector2(200, 20));
-
+            GUI.Label(labelPosition, node.Text);
 
             foreach (string message in node.Choices)
             {

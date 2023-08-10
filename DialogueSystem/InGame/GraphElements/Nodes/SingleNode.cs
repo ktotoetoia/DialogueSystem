@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace DS
 {
@@ -11,12 +10,7 @@ namespace DS
         {
             get
             {
-                if(nextEdge == null)
-                {
-                    return Enumerable.Empty<string>();
-                }
-
-                return new List<string>() { nextEdge.Text };
+                yield return nextEdge?.Text;
             }
         }
 

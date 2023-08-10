@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DS
 {
-    public class SingleChoiceNode : DialogueBaseNode
+    public class SingleChoiceNode : DialogueNodeBase
     {
         public IChoicePort ChoicePort { get; protected set; }
 

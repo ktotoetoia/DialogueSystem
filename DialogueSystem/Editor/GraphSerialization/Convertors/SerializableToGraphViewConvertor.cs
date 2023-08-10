@@ -50,8 +50,8 @@ namespace DS
 
             foreach (SerializableEdge edge in graph.Edges)
             {
-                DialogueBaseNode from = nodes.FindByID(edge.From)?.BaseNode;
-                DialogueBaseNode to = nodes.FindByID(edge.To)?.BaseNode;
+                DialogueNodeBase from = nodes.FindByID(edge.From)?.BaseNode;
+                DialogueNodeBase to = nodes.FindByID(edge.To)?.BaseNode;
 
                 Port fromPort = from.CreateOutputPort(edge.Text).Port;
 

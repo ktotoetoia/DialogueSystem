@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 namespace DS
 {
-    public class DialogueBaseNode : Node
+    public class DialogueNodeBase : Node
     {
         protected NodeClassesInstaller classInstaller = new NodeClassesInstaller();
         protected DSGraphView graphView;
@@ -51,7 +51,7 @@ namespace DS
         private TextField titleTextField;
         private TextField additionalInformationTextField;
 
-        public DialogueBaseNode(Vector2 position, DSGraphView graphView)
+        public DialogueNodeBase(Vector2 position, DSGraphView graphView)
         {
             SetPosition(new Rect(position, Vector2.zero));
 
@@ -70,40 +70,33 @@ namespace DS
 
         protected virtual void AddTitle()
         {
-            TextField titleTextField = CreateTitle();
+            titleTextField = UIUtility.CreateTextField("Dialogue Title");
 
             classInstaller.AddFilenameTextFieldToClassList(titleTextField);
             titleContainer.Insert(0, titleTextField);
-            titleContainer.Insert(1, additionalInformationTextField);
-        }
-
-        protected TextField CreateTitle()
-        {
-            titleTextField = UIUtility.CreateTextField("Dialogue Title", null, callback =>
-            {
-                Title = callback.newValue;
-            });
-
-            return titleTextField;
         }
 
         protected virtual void AddText()
         {
             Foldout textFoldout = UIUtility.CreateFoldout("Dialogue Text");
-
-            textField = UIUtility.CreateTextArea("Dialogue Text");
-            additionalInformationTextField = UIUtility.CreateTextArea("\"[className]{value},\"");
-
             VisualElement customDataContainer = new VisualElement();
 
-            classInstaller.AddCustomDataContainerToUSSClasses(customDataContainer);
-            classInstaller.AddQuoteTextFieldToClassList(textField);
-            classInstaller.AddQuoteTextFieldToClassList(additionalInformationTextField);
+            textField = CreateTextArea(textFoldout, "Dialogue Text");
+            additionalInformationTextField = CreateTextArea(textFoldout,"\"[className]{value},\"");
 
-            textFoldout.Add(textField);
-            textFoldout.Add(additionalInformationTextField);
+            classInstaller.AddCustomDataContainerToUSSClasses(customDataContainer);
             customDataContainer.Add(textFoldout);
             extensionContainer.Add(customDataContainer);
+        }
+
+        private TextField CreateTextArea(Foldout foldout,string text)
+        {
+            TextField textArea = UIUtility.CreateTextArea(text);
+
+            classInstaller.AddQuoteTextFieldToClassList(textArea);
+            foldout.Add(textArea);
+            
+            return textArea;
         }
 
         protected virtual void AddPorts()
@@ -116,6 +109,7 @@ namespace DS
             Port inputPort = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(bool));
 
             inputPort.portName = "Dialogue Connection";
+
             return inputPort;
         }
 
@@ -124,8 +118,6 @@ namespace DS
             menuEvent.menu.AppendAction("Disconnect All Ports", actionEvent => DisconnectAllPorts());
             menuEvent.menu.AppendAction("Disconnect Input Ports", actionEvent => DisconnectPorts(inputContainer));
             menuEvent.menu.AppendAction("Disconnect Output Ports", actionEvent => DisconnectPorts(outputContainer));
-
-            base.BuildContextualMenu(menuEvent);
         }
 
         protected void DisconnectAllPorts()

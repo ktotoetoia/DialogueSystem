@@ -7,6 +7,7 @@ namespace DS
     {
         private IDialogueNodeFactory multipleNodeFactory = new MultipleNodeFactory();
         private IDialogueNodeFactory singleNodeFactory = new SingleNodeFactory();
+        private IDialogueEdgeFactory edgeFactory = new DialogueEdgeFactory();
 
         public DialogueGraph Convert(SerializableGroup group)
         {
@@ -18,14 +19,7 @@ namespace DS
 
         private List<IDialogueNode> ConvertNodes(IEnumerable<SerializableNode> nodes)
         {
-            List<IDialogueNode> result = new List<IDialogueNode>();
-
-            foreach (SerializableNode node in nodes)
-            {
-                result.Add(ConvertNode(node));
-            }
-
-            return result;
+            return nodes.Select(x => ConvertNode(x)).ToList();
         }
 
         private IDialogueNode ConvertNode(SerializableNode node)
@@ -38,26 +32,19 @@ namespace DS
             return multipleNodeFactory.Create(node);
         }
 
-        private List<IDialogueEdge> ConvertEdges(IEnumerable<SerializableEdge> edges, List<IDialogueNode> nodes)
+        private List<IDialogueEdge> ConvertEdges(IEnumerable<SerializableEdge> edges, IEnumerable<IDialogueNode> nodes)
         {
-            List<IDialogueEdge> result = new List<IDialogueEdge>();
-
-            foreach (SerializableEdge edge in edges.Where(x => x.From != -1 && x.To != -1))
-            {
-                result.Add(ConvertEdge(edge, nodes));
-            }
-
-            return result;
+            return GetConnectedEdges(edges).Select(x => ConvertEdge(x,nodes)).ToList();
         }
 
-        private IDialogueEdge ConvertEdge(SerializableEdge edge, List<IDialogueNode> nodes)
+        private IEnumerable<SerializableEdge> GetConnectedEdges(IEnumerable<SerializableEdge> edges)
         {
-            DialogueEdge dialogueEdge = new DialogueEdge(nodes[edge.From], nodes[edge.To])
-            {
-                Text = edge.Text,
-            };
+            return edges.Where(x => x.From != -1 && x.To != -1);
+        }
 
-            return dialogueEdge;
+        private IDialogueEdge ConvertEdge(SerializableEdge edge, IEnumerable<IDialogueNode> nodes)
+        {
+            return edgeFactory.Create(edge, nodes.ElementAt(edge.From), nodes.ElementAt(edge.To));
         }
     }
 }

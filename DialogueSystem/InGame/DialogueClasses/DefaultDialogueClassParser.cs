@@ -11,12 +11,12 @@ namespace DS
         {
             return new DefaultDialogueClass()
             {
-                Name = GetInside(classString, squareBracketsPattern),
-                Value = GetInside(classString, bracesPattern),
+                Name = ExtractFrom(classString, squareBracketsPattern),
+                Value = ExtractFrom(classString, bracesPattern),
             };
         }
 
-        private string GetInside(string text, string pattern)
+        private string ExtractFrom(string text, string pattern)
         {
             Match match = Regex.Match(text, pattern);
             return match.Groups[1].Value;

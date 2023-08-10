@@ -2,8 +2,9 @@
 
 namespace DS
 {
+    [System.Serializable]
     public class SerializableGraph : SerializableGroup
     {
-        public List<SerializableGroup> Groups { get; set; } = new List<SerializableGroup>();
+        public List<SerializableGroup> Groups = new List<SerializableGroup>();
     }
 }

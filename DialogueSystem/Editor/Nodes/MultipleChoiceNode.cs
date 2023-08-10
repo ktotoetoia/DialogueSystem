@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace DS
 {
-    public class MultipleChoiceNode : DialogueBaseNode
+    public class MultipleChoiceNode : DialogueNodeBase
     {
         public List<IChoicePort> Choices { get; protected set; } = new List<IChoicePort>();
         protected ChoicePortFactory portFactory;

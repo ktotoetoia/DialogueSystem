@@ -8,7 +8,12 @@ namespace DS
     {
         private const string commentsPattern = "\".*?\"";
 
-        public IDialogueClassParser Parser { get; set; } = new DefaultDialogueClassParser();
+        public IDialogueClassParser Parser { get; set; }
+
+        public DialogueClassesParser(IDialogueClassParser classParser = null)
+        {
+            Parser = classParser ?? new DefaultDialogueClassParser();
+        }
 
         public IEnumerable<IDialogueClass> ParseClasses(string classes)
         {
@@ -17,17 +22,17 @@ namespace DS
                 .Select(x => x.Trim())
                 .Where(x => !string.IsNullOrWhiteSpace(x));
 
-            return classesList.Select(x => ParseClass(x)).ToList();
-        }
-
-        public IDialogueClass ParseClass(string classString)
-        {
-            return Parser.Parse(classString);
+            return classesList.Select(x => ParseClass(x));
         }
 
         private string RemoveComments(string text)
         {
             return Regex.Replace(text, commentsPattern, string.Empty);
+        }
+
+        public IDialogueClass ParseClass(string classString)
+        {
+            return Parser.Parse(classString);
         }
     }
 }

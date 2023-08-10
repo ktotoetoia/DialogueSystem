@@ -21,8 +21,8 @@
 	background-color: var(--ds-colors-window-dark-grey-1);
 	border-color: var(--ds-colors-window-dark-grey-6);
 	border-radius: var(--ds-metrics-window-pixels-4);
-	max-width: var(--ds-metrics-window-pixels-240);
 	min-width: var(--ds-metrics-window-pixels-160);
+	max-width: var(--ds-metrics-window-pixels-240);
 	padding: var(--ds-metrics-window-pixels-8);
 	white-space: normal;
 }
@@ -69,6 +69,10 @@
 	border-left-width: var(--ds-metrics-window-pixels-4);
 	padding: var(--ds-metrics-window-pixels-16);
 }
+.ds-node__quote-text-field
+{
+	align-self:center;
+}
 
 .ds-node__quote-text-field > .unity-text-field__input:hover
 {
@@ -79,6 +83,7 @@
 {
 	background-color: var(--ds-colors-window-dark-grey-1);
 	border-color: var(--ds-colors-window-dark-grey-6);
+
 }
 
 .ds-node__button
@@ -109,6 +114,7 @@ TextField
 {
 	margin-left: var(--ds-metrics-window-pixels-n4);
 	margin-top: var(--ds-metrics-window-pixels-4);
+
 }
 
 .ds-node__custom-data-container > Foldout > TextField

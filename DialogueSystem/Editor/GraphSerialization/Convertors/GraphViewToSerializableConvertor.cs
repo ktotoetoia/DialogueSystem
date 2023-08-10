@@ -23,29 +23,29 @@ namespace DS
         public SerializableGraph ConvertToSerializable()
         {
             SerializableGraph graph = new SerializableGraph();
-            List<DialogueBaseNode> groupedChilds = new List<DialogueBaseNode>();
+            List<DialogueNodeBase> groupedChilds = new List<DialogueNodeBase>();
             IEnumerable<GraphElement> graphElements = graphView.graphElements;
 
             foreach (Group group in graphElements.OfType<Group>())
             {
-                IEnumerable<DialogueBaseNode> childs = group.containedElements.OfType<DialogueBaseNode>();
+                IEnumerable<DialogueNodeBase> childs = group.containedElements.OfType<DialogueNodeBase>();
                 SerializableGroup serializableGroup = ConvertToSerializableGraph(childs);
                 serializableGroup.Name = group.title;
                 graph.Groups.Add(serializableGroup);
                 groupedChilds.AddRange(childs);
             }
 
-            ConvertToSerializableGraph(graph, graphElements.OfType<DialogueBaseNode>().Except(groupedChilds));
+            ConvertToSerializableGraph(graph, graphElements.OfType<DialogueNodeBase>().Except(groupedChilds));
 
             return graph;
         }
 
-        private SerializableGroup ConvertToSerializableGraph(IEnumerable<DialogueBaseNode> viewNodes)
+        private SerializableGroup ConvertToSerializableGraph(IEnumerable<DialogueNodeBase> viewNodes)
         {
             return ConvertToSerializableGraph(new SerializableGroup(), viewNodes);
         }
 
-        private SerializableGroup ConvertToSerializableGraph(SerializableGroup graph, IEnumerable<DialogueBaseNode> viewNodes)
+        private SerializableGroup ConvertToSerializableGraph(SerializableGroup graph, IEnumerable<DialogueNodeBase> viewNodes)
         {
             var nodes = ConvertNodes(graph, viewNodes);
             ConvertEdges(graph, nodes);
@@ -53,11 +53,11 @@ namespace DS
             return graph;
         }
 
-        private NodePairCollection ConvertNodes(SerializableGroup graph, IEnumerable<DialogueBaseNode> viewNodes)
+        private NodePairCollection ConvertNodes(SerializableGroup graph, IEnumerable<DialogueNodeBase> viewNodes)
         {
             NodePairCollection nodes = new();
 
-            foreach (DialogueBaseNode viewNode in viewNodes)
+            foreach (DialogueNodeBase viewNode in viewNodes)
             {
                 SerializableNode node = ConvertNode(viewNode);
 
@@ -68,7 +68,7 @@ namespace DS
             return nodes;
         }
 
-        private SerializableNode ConvertNode(DialogueBaseNode viewNode)
+        private SerializableNode ConvertNode(DialogueNodeBase viewNode)
         {
             SerializableNode node = new SerializableNode()
             {

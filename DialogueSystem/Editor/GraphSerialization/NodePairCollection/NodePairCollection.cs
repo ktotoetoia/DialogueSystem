@@ -15,15 +15,15 @@ namespace DS
             }
         }
 
-        public IEnumerable<DialogueBaseNode> BaseNodes
+        public IEnumerable<DialogueNodeBase> BaseNodes
         {
             get
             {
-                foreach (DialogueBaseNode node in Nodes.Select(x => x.BaseNode)) yield return node;
+                foreach (DialogueNodeBase node in Nodes.Select(x => x.BaseNode)) yield return node;
             }
         }
 
-        public NodePair Find(DialogueBaseNode node)
+        public NodePair Find(DialogueNodeBase node)
         {
             return Nodes.Find(x => x.BaseNode == node);
         }
@@ -38,7 +38,7 @@ namespace DS
             return Nodes.Find(x => x.DataNode.ID == id);
         }
 
-        public void Add(DialogueBaseNode node, SerializableNode serializableNode)
+        public void Add(DialogueNodeBase node, SerializableNode serializableNode)
         {
             Nodes.Add(new NodePair(serializableNode, node));
         }
